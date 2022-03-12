@@ -1,6 +1,6 @@
 # Created by Dayu Wang (dwang@stchas.edu) on 2022-03-11
 
-# Last updated by Dayu Wang (dwang@stchas.edu) on 2022-03-11
+# Last updated by Dayu Wang (dwang@stchas.edu) on 2022-03-12
 
 
 from csv import reader, writer
@@ -11,8 +11,8 @@ from time import time
 from tkinter import Tk, filedialog
 
 
-ROW_BEGIN = 1200001
-ROW_END = 1210000
+ROW_BEGIN = 0
+ROW_END = 1000000
 
 
 def extract_year_and_month(date_str):
@@ -53,9 +53,9 @@ def main():
 
     # Open the output database.
     if ROW_BEGIN == 0:
-        output_database = open("Output_Database.csv", 'w', newline='', encoding="utf-8")
+        output_database = open("Output_Database_2.csv", 'w', newline='', encoding="utf-8")
     else:
-        output_database = open("Output_Database.csv", 'a', newline='', encoding="utf-8")
+        output_database = open("Output_Database_2.csv", 'a', newline='', encoding="utf-8")
     output_handler = writer(output_database)
 
     first_row = ROW_BEGIN == 0
@@ -81,7 +81,8 @@ def main():
                 first_name = ceo["Extracted First Name"].lower()
                 last_name = ceo["Extracted Last Name"].lower()
 
-                if first_name in owner and last_name in owner:
+                if search(r"(?<![a-z])" + first_name + r"(?![a-z])", owner) is not None \
+                        and search(r"(?<![a-z])" + last_name + r"(?![a-z])", owner) is not None:
                     output_row = row
                     for filename in listdir(pathname_3):
                         if int(filename[:3]) == int(ceo["Number Index"]):
