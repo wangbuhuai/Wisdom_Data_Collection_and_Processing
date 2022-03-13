@@ -12,7 +12,7 @@ from tkinter import Tk, filedialog
 
 
 ROW_BEGIN = 0
-ROW_END = 1000000
+ROW_END = float("inf")
 
 
 def extract_year_and_month(date_str):
